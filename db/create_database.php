@@ -2,7 +2,7 @@
 
 DEFINE('DB_HOST', "localhost");
 DEFINE('DB_USER', "root");
-DEFINE('DB_PASSWORD', "");
+DEFINE('DB_PASSWORD', "snuggle"); //Note: this should be your root password
 DEFINE('DB_NAME', "music_db");
 
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD)
