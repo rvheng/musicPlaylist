@@ -72,7 +72,7 @@ $create_user = $db_connection->prepare(
 	"CREATE OR REPLACE TABLE user
 	(user_id int NOT NULL AUTO_INCREMENT,
 	username varchar(255) NOT NULL,
-	password varchar(255) NOT NULL,
+	pass varchar(255) NOT NULL,
 	email varchar(255),
 	first_name varchar(255),
 	last_name varchar(255),
