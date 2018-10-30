@@ -2,8 +2,8 @@
 //======================================================================
 // FOOTER INCLUDED ON ALL FILES
 //======================================================================
-define( "BASE_URL", "/musicPlaylist");
-define("ROOT_PATH", $_SERVER["DOCUMENT_ROOT"] . "/musicPlaylist");
+//define( "BASE_URL", "/musicPlaylist");
+//define("ROOT_PATH", $_SERVER["DOCUMENT_ROOT"] . "/musicPlaylist");
 ?>
 
 <!-- Footer is consitant for all webpages 
