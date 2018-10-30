@@ -1,3 +1,11 @@
+<?php 
+//======================================================================
+// FOOTER INCLUDED ON ALL FILES
+//======================================================================
+define( "BASE_URL", "/musicPlaylist");
+define("ROOT_PATH", $_SERVER["DOCUMENT_ROOT"] . "/musicPlaylist");
+?>
+
 <!-- Footer is consitant for all webpages 
 ================================================== -->
 <footer class="footer">
@@ -15,9 +23,9 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
 <!-- Required for font awesome -->
-<script src="./fontawesome/js/all.min.js"></script>
+<script src="<?php echo BASE_URL; ?>/fontawesome/js/all.min.js"></script>
 
 <!-- Required for bootstrap -->
-<script src="./js/jquery-3.3.1.min.js"></script>
-<script src="./js/popper.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+<script src="<?php echo BASE_URL; ?>/js/jquery-3.3.1.min.js"></script>
+<script src="<?php echo BASE_URL; ?>/js/popper.min.js"></script>
+<script src="<?php echo BASE_URL; ?>/js/bootstrap.min.js"></script>

@@ -49,7 +49,7 @@
           <hr />
           <p class="text-center">
               <small>
-                <a href="../index.php">Login</a> | Forgot Password
+                <a href="../index.php">Login</a> | <a href="./forgot_pass.php">Forgot Password</a>
               </small>
           </p>
         </div>
