@@ -6,17 +6,14 @@
   /* Start The Session */
   session_start(); 
 
-  /* Path From Root */
-  $path = realpath(dirname(__FILE__));
-
 ?>
 <!doctype html>
 <html lang="en">
   <head>
-  <?php include_once $path . '/include/head.php'; ?>
+  <?php include_once (realpath(dirname(__FILE__).'/include/head.php')); ?>
   </head>
   <body>
-  <?php include_once $path . '/include/header.php'; ?>
+  <?php include_once (realpath(dirname(__FILE__).'/include/header.php')); ?>
     <main role="main" class="container">
       <div class="row justify-content-sm-center">
         <div class="col-sm-4">
@@ -55,6 +52,6 @@
         </div>
       </div>
     </main>
-    <?php include_once $path . '/include/footer.php'; ?>
+    <?php include_once (realpath(dirname(__FILE__).'/include/footer.php')); ?>
   </body>
 </html>

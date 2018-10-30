@@ -10,10 +10,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <?php include_once "./include/head.php"; ?>
+  <?php include_once (realpath(dirname(__FILE__).'/include/head.php')); ?>
   </head>
   <body>
-    <?php include_once "./include/header.php"; ?>
+  <?php include_once (realpath(dirname(__FILE__).'/include/header.php')); ?>
     <main role="main" class="container">
       <div class="row justify-content-sm-center">
         <div class="col-sm-4">
@@ -40,6 +40,6 @@
         </div>
       </div>
     </main>
-    <?php include_once "./include/footer.php"; ?>
+    <?php include_once (realpath(dirname(__FILE__).'/include/footer.php')); ?>
   </body>
 </html>
