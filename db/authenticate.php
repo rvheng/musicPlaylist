@@ -17,10 +17,10 @@ if (isset($_POST['submit'])) {
 }else{
   /* Check the Username and Password */
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $salt = '$1$somethin$';
+    $salt = 'hashbrowns';
     $username = $_POST['username'];
-    $pass = $_POST["password"]; // Fix use salt
-    //$pass = crypt($_POST["password"], $salt );
+    //$pass = $_POST["password"]; // Fix use salt
+    $pass = crypt($_POST["password"], $salt );
     
     // Protect against MYSQL injection
     $username = stripslashes($username);
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 
     // SQL query to fetch information and find match user
     // should this use prepare?
-    $query = mysqli_query($db_connection, "SELECT * FROM user WHERE pass='" . $pass . "' AND username='" . $username . "'"); 
+    $query = mysqli_query($db_connection, "SELECT * FROM user WHERE password='" . $pass . "' AND username='" . $username . "'"); 
     $rows = mysqli_num_rows($query);
 
     if($rows == 1) {
