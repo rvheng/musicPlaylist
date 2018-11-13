@@ -34,7 +34,7 @@
           <hr />
           <p class="text-center">
             <small>
-              <a href="./create_account.php">Create An Account</a> | <a href="./">Login</a>
+              <a href="<?php echo BASE_URL; ?>/create_account.php">Create An Account</a> | <a href="<?php echo BASE_URL; ?>">Login</a>
             </small>
           </p>
         </div>

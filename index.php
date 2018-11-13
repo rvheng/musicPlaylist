@@ -37,7 +37,7 @@
           <hr />
           <p class="text-center">
               <small>
-                <a href="./create_account.php">Create An Account</a> | <a href="./forgot_pass.php">Forgot Password</a>
+                <a href="<?php echo BASE_URL; ?>/create_account.php">Create An Account</a> | <a href="<?php echo BASE_URL; ?>/forgot_pass.php">Forgot Password</a>
               </small>
           </p>
         </div>

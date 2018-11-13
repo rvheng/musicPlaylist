@@ -3,9 +3,6 @@
 // CREATE ACCOUNT
 //======================================================================
 
-  /* Start The Session */
-  session_start(); 
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,7 +15,7 @@
       <div class="row justify-content-sm-center">
         <div class="col-sm-4">
           <h1>Create Account</h1>
-          <form action="./db/create_account.php" method="post">
+          <form action="<?php echo BASE_URL; ?>/db/create_account.php" method="post">
             <div class="form-group">
               <input type="text" class="form-control" id="first_name" placeholder="Enter First Name" name="first_name">
             </div>
@@ -46,7 +43,7 @@
           <hr />
           <p class="text-center">
               <small>
-                <a href="../index.php">Login</a> | <a href="./forgot_pass.php">Forgot Password</a>
+                <a href="<?php echo BASE_URL; ?>">Login</a> | <a href="<?php echo BASE_URL; ?>/forgot_pass.php">Forgot Password</a>
               </small>
           </p>
         </div>
