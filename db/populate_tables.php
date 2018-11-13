@@ -190,7 +190,7 @@ $insert_user = $db_connection->prepare(
 	"INSERT INTO user
 	(user_id,
 	username,
-	pass,
+	password,
 	email,
 	first_name,
 	last_name,
@@ -199,7 +199,7 @@ $insert_user = $db_connection->prepare(
 $insert_user->bind_param("isssssii",
 	$user_id,
 	$username,
-	$pass,
+	$password,
 	$email,
 	$first_name,
 	$last_name,
@@ -208,7 +208,7 @@ $insert_user->bind_param("isssssii",
 
 $user_id = 1;	
 $username = "rheng";
-$pass = "frogprince";
+$password = "frogprince";
 $email = "rheng@email.com";
 $first_name = "rithy";
 $last_name = "heng";
