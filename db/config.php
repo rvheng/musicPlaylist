@@ -10,7 +10,7 @@ ini_set('display_errors', 1); //Error Reporting
 
 DEFINE('DB_HOST', "localhost");
 DEFINE('DB_USER', "root");
-DEFINE('DB_PASSWORD', "snuggle"); //Note: this should be your root password
+DEFINE('DB_PASSWORD', ""); //Note: this should be your root password
 DEFINE('DB_NAME', "music_db");
 
 try {

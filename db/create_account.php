@@ -12,22 +12,22 @@ session_start();
 //-----------------------------------------------------
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $salt = '$1$somethin$';
+  $salt = 'hashbrowns';
 
   $stmt = "INSERT INTO user
   (username,
-  pass,
+  password,
   email,
   first_name,
   last_name,
-  role_id) VALUES(?,?,?,?,?,?)"
+  role_id) VALUES(?,?,?,?,?,?)";
 
   // prepare and bind
   //if($insert_user = $db_connection->prepare($stmt)) { // problem here
 
     $insert_user = $db_connection->prepare($stmt);
 
-    $insert_user->bind_param("isssssii",
+    $insert_user->bind_param("sssssi",
       $username,
       $pass,
       $email,
