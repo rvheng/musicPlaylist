@@ -28,3 +28,6 @@
 <script src="<?php echo BASE_URL; ?>/js/jquery-3.3.1.min.js"></script>
 <script src="<?php echo BASE_URL; ?>/js/popper.min.js"></script>
 <script src="<?php echo BASE_URL; ?>/js/bootstrap.min.js"></script>
+
+<!-- Custom Javascripts -->
+<script src="<?php echo BASE_URL; ?>/js/script.js"></script>

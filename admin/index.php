@@ -14,8 +14,12 @@
   <body>
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/header.php')); ?>
     <main role="main" class="container">
-      <!-- Page Content Goes Here -->
-      <h1> Welcome <?php echo $user_name; ?> </h1>
+      <div class="row justify-content-sm-center">
+        <div class="col-sm-9">
+<!-- Page Content Goes Here -->
+          <h1> Welcome <?php echo $user_name; ?> </h1>
+        </div>
+      </div>
     </main>
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/footer.php')); ?>
   </body>
