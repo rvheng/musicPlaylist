@@ -35,8 +35,8 @@ if (isset($_POST['submit'])) {
 
     if($rows == 1) {
       session_start(); 
+      # This area needs to send users and admins to there own directory
       $_SESSION['login_user']=$username;
-      //$_SESSION['roll']=1;
       header("location: ./../user");
     }else{
       echo "Username or Password did not match!";

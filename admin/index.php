@@ -3,6 +3,8 @@
 // ADMIN DASHBOARD
 //======================================================================
 
+//include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -13,7 +15,7 @@
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/header.php')); ?>
     <main role="main" class="container">
       <!-- Page Content Goes Here -->
-      <h1> Welcome Admin </h1>
+      <h1> Welcome <?php echo $user_name; ?> </h1>
     </main>
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/footer.php')); ?>
   </body>
