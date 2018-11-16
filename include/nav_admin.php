@@ -11,7 +11,7 @@
   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
     <a class="dropdown-item" href="../admin/music_add.php">Add Music</a>
     <a class="dropdown-item" href="../admin/music_search.php">Search Music</a>
-    <a class="dropdown-item" href="../admin/artists_all.php">All Artist</a>
+    <a class="dropdown-item" href="../admin/music_artist.php">All Artist</a>
   </div>
 </li>
 <li class="nav-item dropdown">
