@@ -15,10 +15,10 @@
         </li>
 
         <?php
-//temp
-include_once (realpath(dirname(__FILE__, 2).'/include/nav_admin.php'));
+          //temp
+          // include_once (realpath(dirname(__FILE__, 2).'/include/nav_admin.php'));
 
-          /* User Navigation for general users or administrators *
+          /* User Navigation for general users or administrators */
           if (isset($user_name) &&  $user_role === 1) { // Only shows for general users
             include_once (realpath(dirname(__FILE__, 2).'/include/nav_user.php'));
           } elseif (isset($user_name) &&  $user_role === 2) { // Only shows for admin users
@@ -26,7 +26,7 @@ include_once (realpath(dirname(__FILE__, 2).'/include/nav_admin.php'));
           } else {
             echo '<span class="navbar-text">Currently Logged Out!</span>';
           }
-          */
+          
         ?>
       </ul>
       <?php 
