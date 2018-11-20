@@ -56,6 +56,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   $insert_user->close();
   $db_connection->close();
+  header("Location: ../");
+
+  
 
 }else{
   //remove all session variables

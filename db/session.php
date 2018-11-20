@@ -4,23 +4,29 @@
 // Sessions
 //======================================================================
 
-  include 'config.php'; // update include
+  //include 'config.php'; // update include
+  require_once(realpath(dirname(__FILE__).'/config.php'));
   session_start();
   
   $user_check = $_SESSION['login_user'];
   // Check user and get roll session from database
-  $ses_sql = mysqli_query($conn,"SELECT username FROM user WHERE username ='$user_check'");
+
+  $select_user = $db_connection->prepare(
+    "SELECT username,role_id FROM user WHERE username = ?");
+  $select_user->bind_param("s", $user_check);
+  $select_user->execute();
+  $select_user->bind_result($user_name, $user_role);
+  $select_user->fetch();
 
   # Note this should be changed to prepare statement
-  $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
-  $user_name = $row['username'];
-  //$user_role = $row['role'];
+  $_SESSION['user_name'] = $user_name;
+  $_SESSION['user_role'] = $user_role;
 
   // if there is no User logged in
-  if(!isset($_SESSION['login_user'])){
-    header("location: ./");
-  }
+  //if(!isset($user_name)){
+  //  header("location: ./");
+  //}
 
   // Close the mysql connection
-  // mysqli_close($conn); 
+  mysqli_close($db_connection); 
 ?>

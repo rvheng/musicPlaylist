@@ -15,7 +15,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/header.php')); ?>
     <main role="main" class="container">
       <!-- Page Content Goes Here -->
-      <h1> Welcome <?php echo $login_user; ?> </h1>
+      <h1> Welcome <?php echo $user_check; ?> </h1>
     </main>
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/footer.php')); ?>
   </body>
