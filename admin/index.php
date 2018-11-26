@@ -3,7 +3,7 @@
 // ADMIN DASHBOARD
 //======================================================================
 
-//include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
+include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 
 ?>
 <!doctype html>

@@ -18,8 +18,29 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
         <div class="col-sm-9">
           <h1> Edit User </h1>
           <?php
-            // User Query Statment
-            // Sample Table Below
+
+            // need to pass a user id to be able to edit user!
+            // NOT FINISHED
+            $userid = 3; //$_SESSION['usr_id'];
+
+            $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+            $editusr = $db_connection->prepare("SELECT first_name, last_name, username, email, password  FROM user WHERE user_id = ?");
+            if ($editusr === FALSE) {
+              echo "Connection Failed";
+              die($db_connection->error);
+            }
+            $editusr->bind_param('s', $userid);
+            $editusr->execute();
+            $result = $editusr->get_result();
+            if($result->num_rows === 0) exit('No rows');
+            while($row = $result->fetch_assoc()) {
+              $first_name = $row['first_name'];
+              $last_name = $row['last_name'];
+              $email = $row['email'];
+              $username = $row['username'];
+              $password = $row['password'];
+            }
+            $editusr->close();
           ?>
           <form action="" method="post">
             <div class="form-group">
@@ -28,7 +49,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
             </div>
             <div class="form-group">
               <label for="last_name">Last Name</label>
-              <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $first_name; ?>">
+              <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $last_name; ?>">
             </div>
             <div class="form-group">
               <label for="email">Email</label>

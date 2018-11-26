@@ -23,10 +23,11 @@
   $_SESSION['user_role'] = $user_role;
 
   // if there is no User logged in
-  //if(!isset($user_name)){
-  //  header("location: ./");
-  //}
+  if(!isset($user_name)){
+    header("location: ./");
+  }
 
+  $select_user->close();
   // Close the mysql connection
   mysqli_close($db_connection); 
 ?>
