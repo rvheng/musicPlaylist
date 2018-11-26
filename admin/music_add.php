@@ -37,7 +37,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                     // Add an Artist
                     //-----------------------------------------------------
                   ?>
-                  <form action="" method="post">
+                  <form action="../db/admin_add_artist.php" method="post">
                     <fieldset>
                       <legend>Artist:</legend>
                       <div class="form-row">
@@ -47,10 +47,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                         </div>
                         <div class="form-group col-sm-6">
                           <label for="artist_type">Artist Type</label>
-                          <select class="form-control" id="artist_type" name="artist_type">
-                            <option>Solo</option>
-                            <option>Band</option>
-                          </select>
+                          <input type="text" class="form-control" id="artist_type" placeholder="Artist Type" name="artist_type">
                         </div>
                       </div>
                     </fieldset>
@@ -71,7 +68,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                     // Add an Album
                     //-----------------------------------------------------
                   ?>
-                  <form action="" method="post">
+                  <form action="../db/admin_add_album.php" method="post">
                     <fieldset>
                       <legend>Album:</legend>
                       <div class="form-row">
@@ -88,15 +85,35 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                         <div class="form-group col-sm-6">
                           <label for="album_record">Album Record Label</label>
                           <select class="form-control" id="album_record" name="record_id">
-                            <option value="1">Universal Music Group</option>
-                            <option value="2">Sony Music Entertainment</option>
+			  <?php 
+		      		$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+			      		OR die("Connection failed in retrieving albums");
+		      		$retrieve_record_label = $db_conn->prepare("SELECT record_id,record_label from record_label;");
+				$retrieve_record_label->execute();
+		      		$retrieve_record_label->bind_result($result_record_id,$result_record_label);
+				while($retrieve_record_label->fetch()){      
+					echo "<option value='".$result_record_id."'>".$result_record_label."</option>";
+				}
+				$retrieve_record_label->close();
+				$db_conn->close();
+			  ?>
                           </select>
                         </div>
                         <div class="form-group col-sm-6">
                           <label for="artist_type">Album Era</label>
                           <select class="form-control" id="artist_type" name="era_id">
-                            <option value="6">2000</option>
-                            <option value="7">2010</option>
+			  <?php 
+		      		$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+			      		OR die("Connection failed in retrieving artists");
+		      		$retrieve_artist = $db_conn->prepare("SELECT artist_id,artist_name from artist;");
+				$retrieve_artist->execute();
+		      		$retrieve_artist->bind_result($result_artist_id,$result_artist_name);
+				while($retrieve_artist->fetch()){      
+					echo "<option value='".$result_artist_id."'>".$result_artist_name."</option>";
+				}
+				$retrieve_artist->close();
+				$db_conn->close();
+			  ?>
                           </select>
                         </div>
                       </div>
@@ -104,25 +121,37 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                       <div class="form-group col-sm-6">
                           <label for="album_genre">Album Genre</label>
                           <select class="form-control" id="genre_id" name="genre_id">
-                            <option value="1">pop</option>
-                            <option value="2">rock</option>
+			  <?php 
+		      		$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+			      		OR die("Connection failed in retrieving genres");
+		      		$retrieve_genre = $db_conn->prepare("SELECT genre_id,genre_name from genre;");
+				$retrieve_genre->execute();
+		      		$retrieve_genre->bind_result($result_genre_id,$result_genre_name);
+				while($retrieve_genre->fetch()){      
+					echo "<option value='".$result_genre_id."'>".$result_genre_name."</option>";
+				}
+				$retrieve_genre->close();
+				$db_conn->close();
+			  ?>
                           </select>
                         </div>
                         
                         <div class="form-group col-sm-6">
                           <label for="album_award">Album Award</label>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="1" id="album_award1" name="award_id">
-                            <label class="form-check-label" for="album_award1">
-                              People's Choice award
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="2" id="album_award2" name="award_id">
-                            <label class="form-check-label" for="album_award2">
-                              Teen's Choice award
-                            </label>
-                          </div>
+                          <select class="form-control" id="award_id" name="award_id">
+			  <?php 
+		      		$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+			      		OR die("Connection failed in retrieving awards");
+		      		$retrieve_award = $db_conn->prepare("SELECT award_id,award_name from award;");
+				$retrieve_award->execute();
+		      		$retrieve_award->bind_result($result_award_id,$result_award_name);
+				while($retrieve_award->fetch()){      
+					echo "<option value='".$result_award_id."'>".$result_award_name."</option>";
+				}
+				$retrieve_award->close();
+				$db_conn->close();
+			  ?>
+                          </select>
                         </div>
                       </div>
                     </fieldset>
@@ -143,7 +172,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                     // Add a Song
                     //-----------------------------------------------------
                   ?>
-                  <form action="" method="post">
+                  <form action="../db/admin_add_song.php" method="post">
                     <fieldset>
                       <legend>Song:</legend>
                       <div class="form-row">
@@ -153,9 +182,19 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                         </div>
                         <div class="form-group col-sm-6">
                           <label for="song_artist">Artist</label>
-                          <select class="form-control" id="song_artist" name="artist_id">
-                            <option>Artist Name</option>
-                            <option>Artist Name</option>
+			  <select class="form-control" id="song_artist" name="artist_id">
+			<?php 
+		      		$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+			      		OR die("Connection failed in retrieving artists");
+		      		$retrieve_artist = $db_conn->prepare("SELECT artist_id,artist_name from artist;");
+				$retrieve_artist->execute();
+		      		$retrieve_artist->bind_result($result_artist_id,$result_artist_name);
+				while($retrieve_artist->fetch()){      
+					echo "<option value='".$result_artist_id."'>".$result_artist_name."</option>";
+				}
+				$retrieve_artist->close();
+				$db_conn->close();
+			?>
                           </select>
                         </div>
                       </div>
@@ -163,8 +202,18 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                         <div class="form-group col-sm-6">
                           <label for="song_album">Album</label>
                           <select class="form-control" id="song_album" name="album_id">
-                            <option>Album Name</option>
-                            <option>Album Name</option>
+			  <?php 
+		      		$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+			      		OR die("Connection failed in retrieving albums");
+		      		$retrieve_album = $db_conn->prepare("SELECT album_id,album_name from album;");
+				$retrieve_album->execute();
+		      		$retrieve_album->bind_result($result_album_id, $result_album_name);
+				while($retrieve_album->fetch()){      
+					echo "<option value='".$result_album_id."'>".$result_album_name."</option>";
+				}
+				$retrieve_album->close();
+				$db_conn->close();
+			  ?>
                           </select>
                         </div>
                       </div>
@@ -196,7 +245,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                     // Add an Award
                     //-----------------------------------------------------
                   ?>
-                  <form action="" method="post">
+                  <form action="../db/admin_add_award.php" method="post">
                     <fieldset>
                       <legend>Award:</legend>
                       <div class="form-row">
@@ -223,7 +272,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                     // Add an Era
                     //-----------------------------------------------------
                   ?>
-                  <form action="" method="post">
+                  <form action="../db/admin_add_era.php" method="post">
                     <fieldset>
                       <legend>Era:</legend>
                       <div class="form-row">
@@ -250,7 +299,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                     // Add an Genre
                     //-----------------------------------------------------
                   ?>
-                  <form action="" method="post">
+                  <form action="../db/admin_add_genre.php" method="post">
                     <fieldset>
                       <legend>Genre:</legend>
                       <div class="form-row">
@@ -277,7 +326,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                     // Add an Record Label
                     //-----------------------------------------------------
                   ?>
-                  <form action="" method="post">
+                  <form action="../db/admin_add_record_label.php" method="post">
                     <fieldset>
                       <legend>Genre:</legend>
                       <div class="form-row">
