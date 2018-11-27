@@ -19,7 +19,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 <!-- Page Content Goes Here -->
           <h1> Search for Music </h1>
 <!-- Form to be added -->
-          <form>
+          <form action="../db/admin_show_music.php" method="post">
             <div class="form-row">
               <small id="helpBlock" class="form-text text-muted">
                 Search using any or all fields below.
@@ -43,8 +43,18 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
               <div class="form-group col-md-6">
                 <label for="album_genre">Album Genre</label>
                 <select class="form-control" id="genre_id" name="genre_id">
-                  <option value="1">pop</option>
-                  <option value="2">rock</option>
+                  <?php
+			$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+				OR die("Connection failed in retireving genres");
+			$retrieve_genre = $db_conn->prepare("SELECT genre_id, genre_name from genre;");
+			$retrieve_genre->execute();
+			$retrieve_genre->bind_result($result_genre_id, $result_genre_name);
+			while($retrieve_genre->fetch()){
+				echo "<option value='".$result_genre_id."'>".$result_genre_name."</option>";
+			}
+			$retrieve_genre->close();
+			$db_conn->close();
+		?>
                 </select>
               </div>
             </div>
