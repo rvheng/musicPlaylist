@@ -13,9 +13,9 @@ if (isset($_POST['submit'])) {
 } else {
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $_SESSION['search_fname'] = $_POST['fname'];
-    $_SESSION['$search_lname'] = $_POST['lname'];
-    $_SESSION['$search_uname'] = $_POST['uname'];
-    $_SESSION['$search_email'] = $_POST['email'];
+    $_SESSION['search_lname'] = $_POST['lname'];
+    $_SESSION['search_uname'] = $_POST['uname'];
+    $_SESSION['search_email'] = $_POST['email'];
     header("location: ./../admin/user_results.php");
   }
 }
