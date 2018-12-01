@@ -21,7 +21,8 @@
   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
     <a class="dropdown-item" href="../admin/playlist_add.php">Add Playlist</a>
     <a class="dropdown-item" href="../admin/playlist_search.php">Search Playlist</a>
-    <a class="dropdown-item" href="../admin/playlist_all.php">All Playlist</a>
+    <a class="dropdown-item" href="../admin/playlist.php">All Playlist</a>
+    
   </div>
 </li>
 <li class="nav-item"><a class="nav-link" href="../admin/user.php">Users</a></li>
