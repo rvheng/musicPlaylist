@@ -12,7 +12,7 @@
   <head>
   <?php include_once (realpath(dirname(__FILE__).'/include/head.php')); ?>
   </head>
-  <body>
+  <body class="home">
   <?php include_once (realpath(dirname(__FILE__).'/include/header.php')); ?>
     <main role="main" class="container">
       <div class="row justify-content-sm-center">

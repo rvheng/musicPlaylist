@@ -5,6 +5,17 @@
 
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 
+// if the form submitted update the user
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+  $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+  $update_usr = $db_connection->prepare("UPDATE user SET first_name = ?, last_name = ?, username = ?, email = ?, password = ? WHERE user_id = ?");
+  $update_usr->bind_param("sssssi", $_POST['first_name'], $_POST['last_name'], $_POST['username'], $_POST['email'], $_POST['password'], $_SESSION['edit_user_id']);
+  $update_usr->execute();
+  if($update_usr->affected_rows === 0) exit('No rows updated');
+  $update_usr->close();
+  header("location: ./../admin/user_results.php");
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,9 +30,8 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
           <h1> Edit User </h1>
           <?php
 
-            // need to pass a user id to be able to edit user!
-            // NOT FINISHED
-            $userid = 3; //$_SESSION['usr_id'];
+            // from the previous page we post an id and now can edit that user here
+            $userid = $_SESSION['edit_user_id'];
 
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
             $editusr = $db_connection->prepare("SELECT first_name, last_name, username, email, password  FROM user WHERE user_id = ?");

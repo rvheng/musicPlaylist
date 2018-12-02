@@ -37,14 +37,16 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 60px 15px 0;
+  padding: 30px 15px 0;
 }
 
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
-
-.header-breath {
+.home .header-breath {
   margin-top: 150px;
+}
+.header-breath {
+  margin-top: 0;
 }

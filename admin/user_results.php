@@ -5,6 +5,21 @@
 
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+  if (isset($_POST['userid_edit'])) {
+    $_SESSION['edit_user_id'] = $_POST['userid_edit'];
+    header("location: ./../admin/user_edit.php");
+  } elseif (isset($_POST['userid_del'])) {
+    $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $usr_delete = $db_connection->prepare("DELETE FROM user WHERE user_id = ?");
+    $usr_delete->bind_param("i", $_POST['userid_del']);
+    $usr_delete->execute();
+    $usr_delete->close();
+    $error = 'User Deleted Forever';
+  } else {
+    $error = "There was a problem";
+  }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -50,16 +65,28 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
               if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
-
-
-                  /*
-                  echo '<tr><th>' . $row["user_id"]. '</th><td>' . $row["first_name"]. '</td><td>' . $row["last_name"]. '</td><td>' . $row["username"]. '</td><td>' . $row["email"]. '</td><td><a href="'.BASE_URL.'/admin/user_edit.php" class="text-primary"><i class="fas fa-user-edit"></i></a></td><td><a href="#" class="text-danger"><i class="fas fa-user-minus"></i></a></td></tr>';
-                
-                  <form method="post" action="user_results.php">
-                  <input type="hidden" name="varname" value="' . $row["user_id"]. '">
-                  <button type="submit" class="btn btn-primary"><i class="fas fa-user-edit"></i></button>
-                  </form>
-                  */
+                  // Show results of the search here  
+                  echo '<tr>';
+                  echo '<th>' . $row["user_id"]. '</th>';
+                  echo '<td>' . $row["first_name"]. '</td>';
+                  echo '<td>' . $row["last_name"]. '</td>';
+                  echo '<td>' . $row["username"]. '</td>';
+                  echo '<td>' . $row["email"]. '</td>';
+                  // edit user
+                  echo '<td>';
+                  echo '<form method="post" action="'.BASE_URL.'/admin/user_results.php">';
+                  echo '<input type="hidden" name="userid_edit" value="' . $row["user_id"]. '">';
+                  echo '<button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-user-edit"></i></button>';
+                  echo '</form>';
+                  echo '</td>';
+                  // delete user
+                  echo '<td>';
+                  echo '<form method="post" action="'.BASE_URL.'/admin/user_results.php">';
+                  echo '<input type="hidden" name="userid_del" value="' . $row["user_id"]. '">';
+                  echo '<button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-user-minus"></i></button>';
+                  echo '</form>';
+                  echo '</td>';
+                  echo '</tr>';
                 }
               } else {
                   echo '<tr><td colspan="6">0 results <a href="'.BASE_URL.'/admin/user.php">return to search</a></td></tr>';
@@ -68,7 +95,13 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
             ?>
             <tbody>
           </table>
-
+          <?php
+              /* Error Message */
+              if (isset($error)) {
+                // uses bootstrap alert style for error messages
+                echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+              }
+          ?>
       </div>
     </div>
     </main>
