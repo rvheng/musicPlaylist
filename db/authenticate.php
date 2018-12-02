@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
       }
     }else{
       echo "Username or Password did not match!";
-      //header("location: ./../");
+      header("location: ./../");
     }
     // close the mysql connection
     $select_user->close();

@@ -19,7 +19,6 @@
     Playlists
   </a>
   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <a class="dropdown-item" href="../admin/playlist_add.php">Add Playlist</a>
     <a class="dropdown-item" href="../admin/playlist_search.php">Search Playlist</a>
     <a class="dropdown-item" href="../admin/playlist.php">All Playlist</a>
     
