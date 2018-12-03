@@ -18,7 +18,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
         <div class="col-sm-9">
           <!-- Page Content Goes Here -->
           <h1> All Admin Playlists  </h1>
-          
+          <!-- <div class="card-deck"> -->
           <?php
             
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -31,7 +31,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
             $pllst->execute();
             $result = $pllst->get_result();
 
-            $counter = 0;
+            $counter = 1;
             if ($result->num_rows > 0) {
               // output data of each row
               while($row = $result->fetch_assoc()) {
