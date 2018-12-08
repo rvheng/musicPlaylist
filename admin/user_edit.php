@@ -7,9 +7,21 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 
 // if the form submitted update the user
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+  $salt = 'hashbrowns';
+
   $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   $update_usr = $db_connection->prepare("UPDATE user SET first_name = ?, last_name = ?, username = ?, email = ?, password = ? WHERE user_id = ?");
-  $update_usr->bind_param("sssssi", $_POST['first_name'], $_POST['last_name'], $_POST['username'], $_POST['email'], $_POST['password'], $_SESSION['edit_user_id']);
+  $update_usr->bind_param("sssssi", 
+    $_POST['first_name'], 
+    $_POST['last_name'], 
+    $_POST['username'], 
+    $_POST['email'], 
+    $pass, 
+    $_SESSION['edit_user_id']);
+
+    // set parameters and execute
+    $pass = crypt($_POST["password"], $salt );
+
   $update_usr->execute();
   if($update_usr->affected_rows === 0) exit('No rows updated');
   $update_usr->close();
