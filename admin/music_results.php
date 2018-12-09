@@ -24,6 +24,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                 <th>Artist</th>
                 <th>Album</th>
                 <th>Genre</th>
+                
               </tr>
             <thead>
             <tbody>
