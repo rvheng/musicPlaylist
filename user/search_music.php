@@ -1,6 +1,6 @@
 <?php
 //======================================================================
-// USER DASHBOARD
+// USER SEARCH MUSIC
 //======================================================================
 
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
@@ -15,9 +15,8 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/header.php')); ?>
     <main role="main" class="container">
       <!-- Page Content Goes Here -->
-      <h1> Welcome <?php echo $user_check; ?> </h1>
-      <p>show this users playlists on this page</p>
-      <p>click on playlist shows detail view<p>
+      <h1> Search Music </h1>
+      <p>search form</p>
     </main>
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/footer.php')); ?>
   </body>
