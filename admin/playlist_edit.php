@@ -63,7 +63,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               <input type="text" class="form-control" id="fplaylist_title" name="playlist_title" value="<?php echo $playlist_title; ?>">
             </div>
             <div class="form-group">
-              <label for="private_status">Private Status</label>
+              <label for="private_status">Private Status</label><br>
               <?php
                 /* Shows either public or private status */
                 $check_public = '';
@@ -87,30 +87,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <input class="form-check-input" type="radio" name="private_status" id="inlineRadio2" value="2" <?php echo $playlist_title; ?>>
                 <label class="form-check-label" for="inlineRadio2">private</label>
               </div>
-
-          <?php
-
-          // get the songs in that playlist
-          $playid = $_SESSION['edit_playlist_id'];
-          $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-	  $view_songs = $db_connection->prepare("SELECT * FROM playlist natural join 
-		  				(SELECT * from songlist natural join 
-						(SELECT * from song natural join artist) 
-							as songartist) 
-							as songs 
-						WHERE playlist_id = songs.playlist_id and playlist_id = ?");
-          $view_songs->bind_param('s', $playid);
-          $view_songs->execute();
-          $result = $view_songs->get_result();
-          if($result->num_rows === 0) exit('No songs');
-            echo '<table><tr><th>Song Name</th><th>Artist</th></tr>';
-          while($row = $result->fetch_assoc()) {
-            echo '<tr><td>'.$row['song_title'].'</td><td>'.$row['artist_name'].'</td></tr></table>';
-	  }
-	  echo '</table>';
-          $view_songs->close();
-          ?>
             </div>
+            <?php
+
+            // get the songs in that playlist
+            $playid = $_SESSION['edit_playlist_id'];
+            $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+            $view_songs = $db_connection->prepare("SELECT * FROM playlist natural join 
+                (SELECT * from songlist natural join 
+                (SELECT * from song natural join artist) 
+                  as songartist) 
+                  as songs 
+                WHERE playlist_id = songs.playlist_id and playlist_id = ?");
+            $view_songs->bind_param('s', $playid);
+            $view_songs->execute();
+            $result = $view_songs->get_result();
+            if($result->num_rows === 0) exit('No songs');
+              echo '<table class="table table-striped table-hover"><thead class="thead-dark"><tr><th>Song Name</th><th>Artist</th><th>Remove</th></tr></thead><tbody>';
+              while($row = $result->fetch_assoc()) {
+                echo '<tr><td>'.$row['song_title'].'</td><td>'.$row['artist_name'].'</td><td>Remove To Be ADDED</td></tr>';
+              }
+              echo '</tbody></table>';
+            $view_songs->close();
+            ?>
+            
             
             <?php
               /* Error Message */
