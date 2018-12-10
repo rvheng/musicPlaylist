@@ -5,6 +5,7 @@
 
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 
+
 ?>
 <!doctype html>
 <html lang="en">

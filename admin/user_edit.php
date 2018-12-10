@@ -92,8 +92,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
               }
             ?>
-            <button type="submit" class="btn btn-primary">Edit User</button>
-            <button type="reset" class="btn btn-warning">Reset</button>
+            <button type="submit" class="btn btn-primary">Update User</button>
+            
           </form>
           <hr />
           <a onclick="goBack()" class="text-info"><i class="fas fa-undo-alt"></i> Previous Page</a>

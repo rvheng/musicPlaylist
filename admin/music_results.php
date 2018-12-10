@@ -23,8 +23,13 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                 <th>Song Name</th>
                 <th>Artist</th>
                 <th>Album</th>
+<<<<<<< HEAD
 		<th>Genre</th>
 		<th>Playlist</th>
+=======
+                <th>Genre</th>
+                
+>>>>>>> 2eaebfd4354a4b6f5d3dabfc5ea08dc7f3da9297
               </tr>
             <thead>
             <tbody>
