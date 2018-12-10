@@ -35,11 +35,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <!-- Page Content Goes Here -->
           
           <?php
-
             $playid = $_SESSION['view_playlist_id'];
             
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-            $pllstvw = $db_connection->prepare("SELECT * FROM playlist WHERE playlist_id = ?");
+            $pllstvw = $db_connection->prepare("SELECT * 
+              FROM playlist natural join (
+                SELECT * from songlist natural join (
+                  SELECT * from song natural join artist) 
+                as songartist) 
+              as songs 
+              WHERE playlist_id = songs.playlist_id and playlist_id = ?");
             if ($pllstvw === FALSE) {
               echo "Connection Failed";
               die($db_connection->error);
@@ -49,43 +54,35 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $result = $pllstvw->get_result();
 
             if ($result->num_rows > 0) {
-              // output data of each row
-              while($row = $result->fetch_assoc()) {
-                echo '<h1>'.$row["playlist_title"].'</h1>';
-                echo '<table class="table table-striped table-hover">';
-                echo '<thead class="thead-dark">';
-                echo '<tr>';
-                echo '<th>Title </th>';
-                echo '<th>Artist</th>';
-                echo '<th><i class="far fa-calendar-alt"></i></th>';
-                echo '<th><i class="fas fa-headphones"></i></th>';
-                echo '</tr>';
-                echo '<thead>';
-                echo '<tbody>';
+              $row = $result->fetch_assoc();
+              echo '<h1>'.$row["playlist_title"].'</h1>';
+              echo '<table class="table table-striped table-hover">';
+              echo '<thead class="thead-dark">';
+              echo '<tr>';
+              echo '<th>Title </th>';
+              echo '<th>Artist</th>';
+              echo '<th><i class="far fa-calendar-alt"></i></th>';
+              echo '<th><i class="fas fa-headphones"></i></th>';
+              echo '</tr>';
+              echo '<thead>';
+              echo '<tbody>';
 
-                // another while loop for songs here
+              while($row = $result->fetch_assoc()) {
+                $timestamp = strtotime($row["song_release"]);
                 echo '<tr>';
-                echo '<td>song title</td>';
-                echo '<td>artist title</td>';
-                echo '<td>song release</td>';
+                echo '<td>'.$row["song_title"].'</td>';
+                echo '<td>'.$row["artist_name"].'</td>';
+                echo '<td>'.date("m-d-Y",$timestamp).'</td>';
                 echo '<td>';
-                // audio player <i class="far fa-play-circle"></i>
+                // audio player 
                 echo '<a href="#" onclick="playAudio()"><i class="far fa-play-circle"></i></a>';
-                /* to big for table
-                echo '<audio controls autoplay>';
-                echo '<source src="'.BASE_URL.'/audio/slot-machine-daniel_simon.wav" type="audio/wav">';
-                echo '<source src="'.BASE_URL.'/audio/slot-machine-daniel_simon.mp3" type="audio/mpeg">';
-                echo 'Your browser does not support the audio element.';
-                echo '</audio>';
-                */
                 echo '</td>';
                 echo '</tr>';
-                echo '<tbody>';
-                echo '</table>';
-
               }
+              echo '<tbody>';
+              echo '</table>';
             } else {
-              echo '0 results <a href="'.BASE_URL.'/admin/user.php">return to search</a>';
+              echo '0 results <a href="'.BASE_URL.'/admin/playlist.php">return to playlist</a>';
           }
           $pllstvw->close();
         ?>

@@ -12,16 +12,16 @@
   // Check user and get roll session from database
 
   $select_user = $db_connection->prepare(
-    "SELECT username,role_id FROM user WHERE username = ?");
+    "SELECT username,role_id,user_id FROM user WHERE username = ?");
   $select_user->bind_param("s", $user_check);
   $select_user->execute();
-  $select_user->bind_result($user_name, $user_role);
+  $select_user->bind_result($user_name, $user_role, $user_id);
   $select_user->fetch();
 
-  # Note this should be changed to prepare statement
+  # session information
   $_SESSION['user_name'] = $user_name;
   $_SESSION['user_role'] = $user_role;
-
+  $_SESSION['user_id'] = $user_id;
   // if there is no User logged in
   if(!isset($user_name)){
     header("location: ./");
