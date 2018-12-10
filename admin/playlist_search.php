@@ -22,7 +22,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
               <h1> Playlist Search </h1>
             </div>
             <div class="col-md-6 text-right">
-              <form method="post" action="<?php echo BASE_URL; ?>/admin/playlist_search.php">
+              <form method="post" action="<?php echo BASE_URL; ?>/admin/playlist_add.php">
                 <input type="hidden" name="userid_edit" value="<?php echo $row["user_id"]; ?>">
                 <button type="submit" class="btn btn-success">Create Playlist <i class="fas fa-plus"></i></button>
               </form>
