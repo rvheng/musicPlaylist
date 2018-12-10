@@ -16,7 +16,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $usr_delete->execute();
     $usr_delete->close();
     $error = 'Playlist Deleted Forever';
-  } else {
+  } elseif (isset($_POST['playlistid_view'])) {
+    $_SESSION['view_playlist_id'] = $_POST['playlistid_view'];
+    header("location: ./../admin/playlist_view.php");
+  }else {
     $error = "There was a problem";
   }
 }
@@ -58,9 +61,34 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
                   echo '<div class="card">';
                   echo '<img class="card-img-top" src="https://via.placeholder.com/180x90?text=Playlist+Artwork" alt="Card image cap">';
-                  echo '<div class="card-body">';
+                  echo '<div class="card-header">';
                   echo '<h5 class="card-title">' . $row["playlist_title"]. '</h5>';
+                  echo '</div>'; // end card-header
+                  echo '<ul class="list-group list-group-flush">';
+                  echo '<li class="list-group-item">';
+                  // open view of music
+                  echo '<form method="post" action="'.BASE_URL.'/admin/playlist.php">';
+                  echo '<input type="hidden" name="playlistid_view" value="' . $row["playlist_id"]. '">';
+                  echo '<button type="submit" class="btn btn-link btn-sm"><i class="fas fa-music"></i> see music</button>';
+                  echo '</form>';
+                  echo '</li>'; // end list-group-item
+                  echo '<li class="list-group-item">';
+                  // edit
+                  echo '<form method="post" action="'.BASE_URL.'/admin/playlist.php">';
+                  echo '<input type="hidden" name="playlistid_edit" value="' . $row["playlist_id"]. '">';
+                  echo '<button type="submit" class="btn btn-link btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>';
+                  echo '</form>';
+                  echo '</li>'; // end list-group-item
+                  echo '<li class="list-group-item">';
+                  // delete
+                  echo '<form method="post" action="'.BASE_URL.'/admin/playlist.php">';
+                  echo '<input type="hidden" name="playlistid_del" value="' . $row["playlist_id"]. '">';
+                  echo '<button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-minus"></i> Delete</button>';
+                  echo '</form>';
+                  echo '</li>'; // end list-group-item
+                  echo '<ul class="list-group list-group-flush">'; // end list-group
 
+                  echo '<div class="card-footer">';
                   // visible status
                   if($row["private_status"] === 1) {
                     echo '<i class="far fa-eye"></i> <small>public</small>';
@@ -69,20 +97,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   } else {
                     echo '<i class="far fa-exclamation-triangle"></i> <small>error</small>';
                   }
-                  // edit
-                  echo '<form method="post" action="'.BASE_URL.'/admin/playlist.php">';
-                  echo '<input type="hidden" name="playlistid_edit" value="' . $row["playlist_id"]. '">';
-                  echo '<button type="submit" class="btn btn-primary btn-sm">Edit <i class="fas fa-pencil-alt"></i></button>';
-                  echo '</form>';
-      
-                  // delete
-                  echo '<form method="post" action="'.BASE_URL.'/admin/playlist.php">';
-                  echo '<input type="hidden" name="playlistid_del" value="' . $row["playlist_id"]. '">';
-                  echo '<button type="submit" class="btn btn-danger btn-sm">Delete <i class="fas fa-minus"></i></button>';
-                  echo '</form>';
-                  echo '</div>'; // end card body
-                  echo '<div class="card-footer">';
-                  echo '<small class="text-muted">Last updated 3 mins ago</small>';
                   echo '</div>'; // end card footer
                   echo '</div>'; // end card
 

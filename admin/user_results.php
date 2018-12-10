@@ -89,7 +89,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   echo '</tr>';
                 }
               } else {
-                  echo '<tr><td colspan="6">0 results <a href="'.BASE_URL.'/admin/user.php">return to search</a></td></tr>';
+                  echo '<tr><td colspan="7">0 results <a href="'.BASE_URL.'/admin/user.php">return to search</a></td></tr>';
               }
               $usr->close();
             ?>
