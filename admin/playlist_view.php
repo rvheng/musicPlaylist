@@ -74,7 +74,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 echo '<td>'.$row["artist_name"].'</td>';
                 echo '<td>'.date("m-d-Y",$timestamp).'</td>';
                 echo '<td>';
-                // audio player 
+                // audio player using javascript
                 echo '<a href="#" onclick="playAudio()"><i class="far fa-play-circle"></i></a>';
                 echo '</td>';
                 echo '</tr>';

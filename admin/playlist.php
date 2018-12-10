@@ -107,7 +107,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               }
               if (($counter % 3) != 1) echo '</div>';
             } else {
-              echo '<tr><td colspan="6">0 results <a href="'.BASE_URL.'/admin/user.php"> return to search</a></td></tr>';
+              echo '0 results <a href="'.BASE_URL.'/admin/index.php"> return to home</a>';
             }
             $pllst->close();
 
