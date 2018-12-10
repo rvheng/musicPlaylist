@@ -30,7 +30,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
             </div>
           </div>
           <!-- ENTER SEARCH HERE -->
-          <form action="<?php echo BASE_URL; ?>/admin/playlist_search.php" method="post">
+          <form action="<?php echo BASE_URL; ?>/db/get_playlist.php" method="post">
             <div class="form-row">
               <small id="helpBlock" class="form-text text-muted">
                 Helpful hint...
@@ -38,7 +38,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
             </div>
             <div class="form-row">
               <div class="form-group col-sm-10">
-                <input type="text" class="form-control" id="fname" placeholder="Playlist Name" name="playlist">
+                <input type="text" class="form-control" id="fname" placeholder="Playlist Name" name="playlist_name">
               </div>
               <div class="form-group col-sm-2">
                 <button type="submit" class="btn btn-primary">Search</button>

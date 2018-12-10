@@ -88,6 +88,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <label class="form-check-label" for="inlineRadio2">private</label>
               </div>
 
+          <?php
+
+          // get the songs in that playlist
+          $playid = $_SESSION['edit_playlist_id'];
+          $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	  $view_songs = $db_connection->prepare("SELECT * FROM playlist natural join 
+		  				(SELECT * from songlist natural join 
+						(SELECT * from song natural join artist) 
+							as songartist) 
+							as songs 
+						WHERE playlist_id = songs.playlist_id and playlist_id = ?");
+          $view_songs->bind_param('s', $playid);
+          $view_songs->execute();
+          $result = $view_songs->get_result();
+          if($result->num_rows === 0) exit('No songs');
+            echo '<table><tr><th>Song Name</th><th>Artist</th></tr>';
+          while($row = $result->fetch_assoc()) {
+            echo '<tr><td>'.$row['song_title'].'</td><td>'.$row['artist_name'].'</td></tr></table>';
+	  }
+	  echo '</table>';
+          $view_songs->close();
+          ?>
             </div>
             
             <?php

@@ -15,8 +15,8 @@ if(!isset($_POST['artist_name']) &&
 	!isset($_POST['genre_id'])) {
 	
 	$select_music = $db_connection->prepare("SELECT 
-		songs.song_title, songs.artist_name, albums.album_name, albums.genre_name FROM 
-		(SELECT song_title, artist_name, album_id FROM song natural join artist) as songs,
+		songs.song_id, songs.song_title, songs.artist_name, albums.album_name, albums.genre_name FROM 
+		(SELECT song_id, song_title, artist_name, album_id FROM song natural join artist) as songs,
 		(SELECT album_name, genre_name, album_id, genre_id FROM album natural join genre) as albums;"); 
 	$select_music->execute();
 	$result = $select_music->get_result();
@@ -34,8 +34,8 @@ else {
 	$genre_id = $_POST['genre_id'];
 
 	$select_music = $db_connection->prepare("SELECT 
-		songs.song_title, songs.artist_name, albums.album_name, albums.genre_name FROM 
-		(SELECT song_title, artist_name, album_id FROM song natural join artist) as songs,
+		songs.song_id, songs.song_title, songs.artist_name, albums.album_name, albums.genre_name FROM 
+		(SELECT song_id, song_title, artist_name, album_id FROM song natural join artist) as songs,
 		(SELECT album_name, genre_name, album_id, genre_id FROM album natural join genre) as albums 
 		WHERE
 		songs.album_id = albums.album_id AND
