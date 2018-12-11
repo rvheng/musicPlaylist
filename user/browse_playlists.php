@@ -36,6 +36,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               echo "Connection Failed";
               die($db_connection->error);
             }
+
+
+            
             $pllst->bind_param('s', $public);
             $pllst->execute();
             $result = $pllst->get_result();

@@ -19,11 +19,42 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
           <!-- Page Content Goes Here -->
           
           <?php
+          /*
           if(isset($_SESSION['playlist_results'])){
             $playid = $_SESSION['playlist_results']['playlist_id'];
           }
           else {
             $playid = $_SESSION['uview_playlist_id'];
+          }
+          */
+
+          if(isset($_SESSION['playlist_results'])){
+            if(!isset($_SESSION['playlist_id'])) {
+              //echo 'See a';
+              if(!isset($_SESSION['uview_playlist_id'])) {
+                //echo 'See a 1';
+                $playid = $_SESSION['edit_playlist_id'];
+              }else{
+                //echo 'See a 2';
+                $playid = $_SESSION['uview_playlist_id'];
+              }
+              $playid = $_SESSION['uview_playlist_id'];
+            }else {
+              //echo 'See b';
+              $playid = $_SESSION['playlist_results']['playlist_id'];
+            }
+
+            //$playid = $_SESSION['playlist_results']['playlist_id'];
+          }
+          
+          else {
+            if(!isset($_SESSION['uview_playlist_id'])) {
+              //echo 'See c';
+              $playid = $_SESSION['edit_playlist_id'];
+            } else {
+              //echo 'See d';
+              $playid = $_SESSION['uview_playlist_id'];
+            }
           }
             
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);

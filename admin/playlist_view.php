@@ -43,10 +43,10 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
           
           else {
             if(!isset($_SESSION['view_playlist_id'])) {
-              echo 'See c';
+              //echo 'See c';
               $playid = $_SESSION['edit_playlist_id'];
             } else {
-              echo 'See d';
+              //echo 'See d';
               $playid = $_SESSION['view_playlist_id'];
             }
           }
