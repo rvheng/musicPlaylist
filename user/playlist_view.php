@@ -1,10 +1,9 @@
 <?php
 //======================================================================
-// USER Playlist Detail View
+// ADMIN PLAYLIST VIEW
 //======================================================================
 
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +22,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
             $playid = $_SESSION['playlist_results']['playlist_id'];
           }
           else {
-            $playid = $_SESSION['uview_playlist_id'];
+            $playid = $_SESSION['view_playlist_id'];
           }
             
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -72,7 +71,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
               echo '<tbody>';
               echo '</table>';
             } else {
-              echo '0 results <a href="'.BASE_URL.'/admin/playlist.php">return to playlist</a>';
+              echo '0 results <a href="'.BASE_URL.'/user/playlist.php">return to playlist</a>';
           }
           $pllstvw->close();
         ?>

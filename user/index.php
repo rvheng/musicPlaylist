@@ -4,8 +4,9 @@
 //======================================================================
 
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
+header("Location: ./../user/browse_playlists.php");
 
-?>
+/*
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,3 +23,5 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
     <?php include_once (realpath(dirname(__FILE__, 2).'/include/footer.php')); ?>
   </body>
 </html>
+*/
+?>
