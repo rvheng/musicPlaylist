@@ -37,16 +37,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <div class="col-sm-9">
           <!-- Page Content Goes Here -->
           <h1> All Admin Playlists  </h1>
-          <!-- <div class="card-deck"> -->
           <?php
-            
+
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-            $pllst = $db_connection->prepare("SELECT * FROM playlist");
-            if ($pllst === FALSE) {
-              echo "Connection Failed";
-              die($db_connection->error);
+            
+            if(isset($_SESSION['p_name'])){
+              $playt = $_SESSION['p_name'];
+              $pllst = $db_connection->prepare("SELECT * FROM playlist WHERE playlist_title LIKE ?;");
+
+              if ($pllst === FALSE) {
+                echo "Connection Failed";
+                die($db_connection->error);
+              }
+
+              $pllst->bind_param('s', $playt);
             }
-            //$pllst->bind_param('ssss', $fname, $lname, $_SESSION['$search_uname'], $_SESSION['$search_email']);
+            else {
+              $pllst = $db_connection->prepare("SELECT * FROM playlist;");
+                if ($pllst === FALSE) {
+                  echo "Connection Failed";
+                  die($db_connection->error);
+                }
+            }
+            
             $pllst->execute();
             $result = $pllst->get_result();
 
@@ -109,6 +122,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             } else {
               echo '0 results <a href="'.BASE_URL.'/admin/index.php"> return to home</a>';
             }
+            $_SESSION['p_name'] = null;
             $pllst->close();
 
           ?>

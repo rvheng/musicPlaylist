@@ -6,19 +6,22 @@
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 
 // if the form submitted update the playlist
+
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+ 
 
-  $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-  $update_ply = $db_connection->prepare("UPDATE user SET first_name = ?, last_name = ? WHERE playlist_id = ?");
-  $update_ply->bind_param("ssi", 
-    $_POST['playlist_title'], 
-    $_POST['private_status'], 
-    $_SESSION['edit_playlist_id']);
+    $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $update_ply = $db_connection->prepare("UPDATE playlist SET playlist_title = ?, private_status = ? WHERE playlist_id = ?");
+    $update_ply->bind_param("sii", 
+      $_POST['playlist_title'], 
+      $_POST['private_status'], 
+      $_POST['this_playlistid_view']);
 
-  $update_ply->execute();
-  if($update_uply->affected_rows === 0) exit('No rows updated');
-  $update_ply->close();
-  header("location: ./../admin/playlist_results.php");
+    $update_ply->execute();
+    if($update_uply->affected_rows === 0) exit('No rows updated');
+    $update_ply->close();
+    header("location: ./../admin/playlist_view.php");
 }
 
 ?>
@@ -58,6 +61,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           ?>
 
           <form action="" method="post">
+            <input type="hidden" name="this_playlistid_view" value="<?php echo $playid; ?>">
             <div class="form-group">
               <label for="playlist_title">Playlist Title</label>
               <input type="text" class="form-control" id="fplaylist_title" name="playlist_title" value="<?php echo $playlist_title; ?>">
@@ -88,6 +92,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <label class="form-check-label" for="inlineRadio2">private</label>
               </div>
             </div>
+            <button type="submit" class="btn btn-primary">Update Playlist</button>
+            </form>
             <?php
 
             // get the songs in that playlist
@@ -105,7 +111,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if($result->num_rows === 0) exit('No songs');
               echo '<table class="table table-striped table-hover"><thead class="thead-dark"><tr><th>Song Name</th><th>Artist</th><th>Remove</th></tr></thead><tbody>';
               while($row = $result->fetch_assoc()) {
-                echo '<tr><td>'.$row['song_title'].'</td><td>'.$row['artist_name'].'</td><td>Remove To Be ADDED</td></tr>';
+                echo '<tr><td>'.$row['song_title'].'</td><td>'.$row['artist_name'].'</td><td>
+                <form action="'.BASE_URL.'/db/remove_song_from_playlist.php" method="post">
+                  <input type="hidden" name="music_playlist_rem_song" value="'.$row["song_id"].'">
+                  <input type="hidden" name="music_playlist_rem_playlist" value="'.$row["playlist_id"].'">
+                  <button type="submit" class="btn btn-danger"><i class="fas fa-minus"></i></button>
+                </form></td></tr>';
               }
               echo '</tbody></table>';
             $view_songs->close();
@@ -119,8 +130,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
               }
             ?>
-            <button type="submit" class="btn btn-primary">Update Playlist</button>
-          </form>
         </div>
       </div>
     </main>

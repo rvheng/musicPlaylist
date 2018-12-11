@@ -52,7 +52,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
                   echo '<ul class="list-group list-group-flush">';
                   echo '<li class="list-group-item">';
                   // open view of music
-                  echo '<form method="post" action="'.BASE_URL.'/admin/playlist.php">';
+                  echo '<form method="post" action="'.BASE_URL.'/db/admin_show_music.php">';
                   echo '<input type="hidden" name="artistid_view" value="' . $row["artist_id"]. '">';
                   echo '<button type="submit" class="btn btn-link btn-sm"><i class="fas fa-music"></i> see music</button>';
                   echo '</form>';

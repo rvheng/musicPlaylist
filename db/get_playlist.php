@@ -24,6 +24,7 @@ if(!isset($_POST['playlist_name'])){
 	if(isset($_POST['music_playlist_add'])){
 		$music_id = $_POST['music_playlist_add'];
 		$_SESSION['music_playlist_add_id'] = $music_id;
+		header("Location: ../admin/playlist_results.php");
 	}
 }
 else {
@@ -33,18 +34,29 @@ else {
 	$select_playlist->execute();
 	$result = $select_playlist->get_result();
 
+	$counter = 0;
 	while($row = $result->fetch_assoc()){
-		$_SESSION['playlist_results'][] = $row;
+		$_SESSION['playlist_results'] = $row;
+		$counter += 1;
 	}
-		
+
 	$select_playlist->close();
 
 	//If coming from music +
 	if(isset($_POST['music_playlist_add'])){
 		$music_id = $_POST['music_playlist_add'];
 		$_SESSION['music_playlist_add_id'] = $music_id;
+		header("Location: ../admin/playlist_results.php");
+	}
+	if($counter > 1)
+	{
+		$_SESSION['p_name'] = "%{$_POST['playlist_name']}%";
+		header("Location: ../admin/playlist.php");
+	}
+	else {
+		header("Location: ../admin/playlist_view.php");
 	}
 }
 
-header("Location: ../admin/playlist_results.php");
+
 ?>

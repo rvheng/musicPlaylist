@@ -35,7 +35,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <!-- Page Content Goes Here -->
           
           <?php
+          if(isset($_SESSION['playlist_results'])){
+            $playid = $_SESSION['playlist_results']['playlist_id'];
+          }
+          else {
             $playid = $_SESSION['view_playlist_id'];
+          }
             
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
             $pllstvw = $db_connection->prepare("SELECT * 
@@ -51,6 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
             $pllstvw->bind_param('s', $playid);
             $pllstvw->execute();
+
             $result = $pllstvw->get_result();
 
             if ($result->num_rows > 0) {
