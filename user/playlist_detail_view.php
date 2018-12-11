@@ -72,7 +72,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
               echo '<tbody>';
               echo '</table>';
             } else {
-              echo '0 results <a href="'.BASE_URL.'/admin/playlist.php">return to playlist</a>';
+              echo '0 results <a href="'.BASE_URL.'/user/browse_playlists.php">return to playlist</a>';
           }
           $pllstvw->close();
         ?>

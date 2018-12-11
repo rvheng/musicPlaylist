@@ -25,7 +25,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $update_usr->execute();
   if($update_usr->affected_rows === 0) exit('No rows updated');
   $update_usr->close();
-  header("location: ./../admin/user_results.php");
+  $message = "Update Successful!";
+  //header("location: ./../user/user_account.php");
 }
 
 ?>
@@ -85,6 +86,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               if (isset($error)) {
                 // uses bootstrap alert style for error messages
                 echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+              }
+              if (isset($message)) {
+                // uses bootstrap alert style for error messages
+                echo '<div class="alert alert-info" role="alert">' . $message . '</div>';
               }
             ?>
             <button type="submit" class="btn btn-primary">Update User</button>

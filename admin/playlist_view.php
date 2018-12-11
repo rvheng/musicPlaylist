@@ -4,23 +4,7 @@
 //======================================================================
 
 include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
-/*
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  if (isset($_POST['playlistid_edit'])) {
-    $_SESSION['edit_playlist_id'] = $_POST['playlistid_edit'];
-    header("location: ./../admin/playlist_edit.php");
-  } elseif (isset($_POST['playlistid_del'])) {
-    $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $usr_delete = $db_connection->prepare("DELETE FROM playlist WHERE playlist_id = ?");
-    $usr_delete->bind_param("i", $_POST['playlistid_del']);
-    $usr_delete->execute();
-    $usr_delete->close();
-    $error = 'Playlist Deleted Forever';
-  } else {
-    $error = "There was a problem";
-  }
-}
-*/
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,12 +19,38 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <!-- Page Content Goes Here -->
           
           <?php
+
+
+
           if(isset($_SESSION['playlist_results'])){
-            $playid = $_SESSION['playlist_results']['playlist_id'];
+            if(!isset($_SESSION['playlist_id'])) {
+              //echo 'See a';
+              if(!isset($_SESSION['view_playlist_id'])) {
+                //echo 'See a 1';
+                $playid = $_SESSION['edit_playlist_id'];
+              }else{
+                //echo 'See a 2';
+                $playid = $_SESSION['view_playlist_id'];
+              }
+              $playid = $_SESSION['view_playlist_id'];
+            }else {
+              //echo 'See b';
+              $playid = $_SESSION['playlist_results']['playlist_id'];
+            }
+
+            //$playid = $_SESSION['playlist_results']['playlist_id'];
           }
+          
           else {
-            $playid = $_SESSION['view_playlist_id'];
+            if(!isset($_SESSION['view_playlist_id'])) {
+              echo 'See c';
+              $playid = $_SESSION['edit_playlist_id'];
+            } else {
+              echo 'See d';
+              $playid = $_SESSION['view_playlist_id'];
+            }
           }
+
             
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
             $pllstvw = $db_connection->prepare("SELECT * 

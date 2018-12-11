@@ -10,17 +10,20 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
  
-
     $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $update_ply = $db_connection->prepare("UPDATE playlist SET playlist_title = ?, private_status = ? WHERE playlist_id = ?");
     $update_ply->bind_param("sii", 
       $_POST['playlist_title'], 
       $_POST['private_status'], 
-      $_POST['this_playlistid_view']);
+      $_POST['update_play']);
 
     $update_ply->execute();
     if($update_uply->affected_rows === 0) exit('No rows updated');
     $update_ply->close();
+
+    //$_SESSION['view_playlist_id'] = $editplayid;
+    $_SESSION['view_playlist_id'] = $_POST['update_play'];
+
     header("location: ./../admin/playlist_view.php");
 }
 
@@ -41,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <?php
 
           // from the previous page we post an id and now can edit that playlist here
-          $playid = $_SESSION['edit_playlist_id'];
+          $editplayid = $_SESSION['edit_playlist_id'];
 
           $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
           $editplay = $db_connection->prepare("SELECT playlist_title, private_status FROM playlist WHERE playlist_id = ?");
@@ -49,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             echo "Connection Failed";
             die($db_connection->error);
           }
-          $editplay->bind_param('s', $playid);
+          $editplay->bind_param('s', $editplayid);
           $editplay->execute();
           $result = $editplay->get_result();
           if($result->num_rows === 0) exit('No rows');
@@ -60,8 +63,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           $editplay->close();
           ?>
 
-          <form action="" method="post">
-            <input type="hidden" name="this_playlistid_view" value="<?php echo $playid; ?>">
+          <form action="<?php echo BASE_URL ?>/admin/playlist_edit.php" method="post">
+            <input type="hidden" name="update_play" value="<?php echo $editplayid ?>">
             <div class="form-group">
               <label for="playlist_title">Playlist Title</label>
               <input type="text" class="form-control" id="fplaylist_title" name="playlist_title" value="<?php echo $playlist_title; ?>">
@@ -93,11 +96,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               </div>
             </div>
             <button type="submit" class="btn btn-primary">Update Playlist</button>
-            </form>
+            </form><br>
             <?php
 
             // get the songs in that playlist
-            $playid = $_SESSION['edit_playlist_id'];
+            $songplayid = $_SESSION['edit_playlist_id'];
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
             $view_songs = $db_connection->prepare("SELECT * FROM playlist natural join 
                 (SELECT * from songlist natural join 
@@ -105,7 +108,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   as songartist) 
                   as songs 
                 WHERE playlist_id = songs.playlist_id and playlist_id = ?");
-            $view_songs->bind_param('s', $playid);
+            $view_songs->bind_param('s', $songplayid);
             $view_songs->execute();
             $result = $view_songs->get_result();
             if($result->num_rows === 0) exit('No songs');

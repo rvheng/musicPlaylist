@@ -21,7 +21,7 @@ include_once (realpath(dirname(__FILE__, 2).'/db/session.php'));
           <?php
             
             $db_connection->connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-            $artistvw = $db_connection->prepare("SELECT artist_id, artist_name, COUNT(album_id) AS album_num, COUNT(song_id) AS song_num 
+            $artistvw = $db_connection->prepare("SELECT artist_id, artist_name, DISTINCT COUNT(album_id) AS album_num, COUNT(song_id) AS song_num 
               FROM playlist natural join (
                 SELECT * from songlist natural join (
                   SELECT * from song natural join artist) 
